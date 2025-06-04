@@ -87,12 +87,14 @@ class UserController extends Controller
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
-        
-        $this->userRepository->update($data, $id);
+          $this->userRepository->update($data, $id);
 
         if ($request->has('roles')) {
             $user->syncRoles($request->roles);
         }
+
+        // Refresh the user data from database to get updated values
+        $user->refresh();
 
         return new UserResource($user->load('roles'));
     }
