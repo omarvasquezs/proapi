@@ -84,11 +84,11 @@ class AuthController extends Controller
             true, // HttpOnly
             false,
             'Lax'
-        );
-
-        return response()->json([
+        );        return response()->json([
             'message' => 'Inicio de sesión exitoso',
             'user' => $user,
+            'token' => $token,
+            'token_type' => 'Bearer'
         ])->withCookie($cookie);
     }
 

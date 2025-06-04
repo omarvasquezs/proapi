@@ -13,17 +13,14 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    protected $userRepository;
-
-    public function __construct(UserRepository $userRepository)
+    protected $userRepository;    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->middleware('auth:sanctum');
-        $this->middleware('check.permission:ver-usuarios')->only(['index', 'show']);
-        $this->middleware('check.permission:crear-usuarios')->only(['store']);
-        $this->middleware('check.permission:editar-usuarios')->only(['update']);
-        $this->middleware('check.permission:eliminar-usuarios')->only(['destroy']);
-        $this->middleware('check.permission:asignar-roles')->only(['assignRole', 'removeRole']);
+        $this->middleware('permission:ver-usuarios')->only(['index', 'show']);
+        $this->middleware('permission:crear-usuarios')->only(['store']);
+        $this->middleware('permission:editar-usuarios')->only(['update']);
+        $this->middleware('permission:eliminar-usuarios')->only(['destroy']);
+        $this->middleware('permission:asignar-roles')->only(['assignRole', 'removeRole']);
     }
 
     /**
