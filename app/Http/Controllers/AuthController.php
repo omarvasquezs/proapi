@@ -149,6 +149,8 @@ class AuthController extends Controller
         
         return response()->json([
             'message' => 'Token actualizado',
+            'token' => $token, // Add the new token to the response
+            'token_type' => 'Bearer' // Optionally, include the token type
         ])->withCookie($cookie);
     }
     
@@ -159,4 +161,4 @@ class AuthController extends Controller
     {
         return $user->getPermissionNames()->toArray();
     }
-} 
+}
