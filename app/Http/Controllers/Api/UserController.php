@@ -39,6 +39,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users', // Add username validation
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'roles' => 'nullable|array',
@@ -47,6 +48,7 @@ class UserController extends Controller
 
         $user = $this->userRepository->create([
             'name' => $request->name,
+            'username' => $request->username, // Add username to the creation data
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -140,4 +142,4 @@ class UserController extends Controller
 
         return new UserResource($user->load('roles'));
     }
-} 
+}
